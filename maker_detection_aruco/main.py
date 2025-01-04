@@ -19,7 +19,4 @@ cv2.imwrite('processed_image.jpg', image)
 corners, ids = ad.aruco_detection(image)
 
 # VISUALISATION
-try:
-    annotate(image,corners,ids)
-except:
-    print("Markers not detected")
+annotate(image,corners,ids)
