@@ -61,12 +61,10 @@ for raw_frame in capture_frame():
         print(f"Yaw: {yaw:.3f}°")
 
     # VISUALISATION
-    #annotate(image,corners,ids,camMatrix,marker_length,pose_data)
+    annotate(image,corners,ids,camMatrix,marker_length,pose_data)
 
-    # FRAME TRANSFORMATIONS FOR DOCKING
-    pass
-
-    # Enforce 1 Hz execution rate
+    # Enforce 1 Hz execution rate (NOT REALLY HARD REALTIME)
     elapsed_time = time.time() - start_time
-    sleep_time = max(0, 1.0 - elapsed_time)  # Calculate remaining time for 1 second
+    sleep_time = max(0, 1 - elapsed_time)  # Calculate remaining time for 1 second
+    #print(elapsed_time) # To check execution time of loop
     time.sleep(sleep_time)  # Sleep to maintain 1 Hz

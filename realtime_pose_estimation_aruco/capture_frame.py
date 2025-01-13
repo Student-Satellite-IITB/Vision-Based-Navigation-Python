@@ -23,6 +23,10 @@ def capture_frame():
         while True:
             frame = picam.capture_array()
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            # Saving in temporary buffer for videostreaming
+            #cv2.imwrite("/tmp/image.jpeg",frame)
+            
             yield frame
     finally:
         picam.stop()

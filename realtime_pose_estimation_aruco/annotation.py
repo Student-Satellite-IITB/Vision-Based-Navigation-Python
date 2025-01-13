@@ -24,9 +24,15 @@ def annotate(image, corners, ids, camMatrix, marker_length, pose_data):
             # Draw the frame axes based on the marker's pose
             cv2.drawFrameAxes(image, camMatrix, None, rvec, tvec, marker_length / 2)
             cv2.aruco.drawDetectedMarkers(image, corners, ids)
-            cv2.imwrite("./annotated_images/detected_markers.png", image)
-            print(f"Annotated image saved")
+
+            #cv2.imwrite("./annotated_images/detected_markers.png", image)
+            #print(f"Annotated image saved")
+
+            # Saving in temporary buffer for videostreaming
+            cv2.imwrite("/tmp/image.jpeg", image)
     else:
+        # Saving in temporary buffer for videostreaming
+        cv2.imwrite("/tmp/image.jpeg", image)
         print("No markers detected.")
 
     return

@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 
+ArucoFrameTransformation = np.array([[1,0,0],[0,-1,0],[0,0,-1]]) 
+
 def PRV2PRV_deg(rvec):
     """
     Convert rotation vector to unit vector and rotation angle in degrees.
@@ -14,6 +16,12 @@ def PRV2PRV_deg(rvec):
     """
     # Ensure the rvec is a numpy array
     rvec = np.array(rvec).flatten()
+
+    R = cv2.Rodrigues(rvec)[0]
+    # Aruco frame transformation
+    R = ArucoFrameTransformation@R
+    # Convert back to PRV
+    rvec = cv2.Rodrigues(R)[0]
 
     # Calculate the angle (magnitude of the rotation vector)
     angle_rad = np.linalg.norm(rvec)  # Magnitude gives the angle in radians
@@ -42,6 +50,9 @@ def PRV2Euler(rvec):
     """
     # Convert the rotation vector to a rotation matrix
     R, _ = cv2.Rodrigues(rvec)
+
+    # Aruco frame transformation
+    R = ArucoFrameTransformation@R
 
     # Calculate roll, pitch, yaw from the rotation matrix
     sy = np.sqrt(R[0, 0]**2 + R[1, 0]**2)
